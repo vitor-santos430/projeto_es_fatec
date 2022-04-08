@@ -1,5 +1,12 @@
 package controller;
 
-public class Quadra {
+import java.util.ArrayList;
+import java.util.List;
 
+public class Quadra {
+	private List quadras = new ArrayList();
+	
+	public void cadastrar() {
+		
+	}
 }
