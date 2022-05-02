@@ -10,7 +10,7 @@ public class Connection {
 		Connection conn = null;
 		
 		try {
-			String url = "jdbc:mysql://localhost:3306/db_sistema_clube?user=root&password=";
+			String url = "jdbc:mysql://localhost:3306/db_sistema_clube?user=root&password=vidabela";
 			conn = (Connection)DriverManager.getConnection(url);
 		}catch(SQLException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
