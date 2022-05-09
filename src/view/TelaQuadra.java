@@ -18,6 +18,9 @@ import javax.swing.border.EmptyBorder;
 import controller.Quadra;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JList;
+import java.awt.Dialog.ModalExclusionType;
+import java.awt.Window.Type;
 
 public class TelaQuadra extends JFrame {
 
@@ -50,6 +53,9 @@ public class TelaQuadra extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaQuadra() {
+		setType(Type.UTILITY);
+		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
+		setTitle("Quadras");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -57,7 +63,7 @@ public class TelaQuadra extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		lblCadastroDeQuadra.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		lblCadastroDeQuadra.setBounds(132, 0, 183, 17);
+		lblCadastroDeQuadra.setBounds(106, 12, 261, 17);
 		contentPane.add(lblCadastroDeQuadra);
 		
 		JLabel lblId = new JLabel("Id:");
