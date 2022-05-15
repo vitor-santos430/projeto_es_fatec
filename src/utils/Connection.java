@@ -1,18 +1,22 @@
 package utils;
 
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
+//import java.sql.*;
+import java.sql.*;
 import javax.swing.JOptionPane;
 
 public class Connection {
 	public Connection conectaDB(){
 		Connection conn = null;
 		
-		try {
-			String url = "jdbc:mysql://localhost:3306/db_sistema_clube?user=root&password=vidabela";
+		try 
+		{
+			String url = "jdbc:mysql://localhost/db_sistema_clube?user=root&password=";
 			conn = (Connection)DriverManager.getConnection(url);
-		}catch(SQLException e) {
+			
+			System.out.println("Conectado");
+		}
+		catch(SQLException e) 
+		{
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
 		
