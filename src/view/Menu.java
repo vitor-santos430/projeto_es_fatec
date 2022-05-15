@@ -38,7 +38,7 @@ public class Menu extends JFrame {
 	 */
 	public Menu() {
 		setTitle("Menu - Programa de Clube - v0.0.1");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 531, 327);
 		this.setLocationRelativeTo(null);
 		contentPane = new JPanel();
