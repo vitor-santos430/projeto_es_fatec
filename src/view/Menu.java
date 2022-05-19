@@ -53,16 +53,16 @@ public class Menu extends JFrame {
 				tq.setVisible(true);
 			}
 		});
-		btnNewButton.setBounds(131, 123, 117, 56);
+		btnNewButton.setBounds(99, 123, 117, 56);
 		contentPane.add(btnNewButton);
 		
 		JLabel lblMenu = new JLabel("Menu");
-		lblMenu.setFont(new Font("Dialog", Font.BOLD, 14));
-		lblMenu.setBounds(251, 53, 48, 15);
+		lblMenu.setFont(new Font("Dialog", Font.BOLD, 25));
+		lblMenu.setBounds(226, 12, 91, 30);
 		contentPane.add(lblMenu);
 		
 		JButton btnNewButton_1 = new JButton("Clientes");
-		btnNewButton_1.setBounds(309, 123, 117, 56);
+		btnNewButton_1.setBounds(315, 123, 117, 56);
 		contentPane.add(btnNewButton_1);
 	}
 }
