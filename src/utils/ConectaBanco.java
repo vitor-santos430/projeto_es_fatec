@@ -1,17 +1,16 @@
 package utils;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
-import java.sql.Connection;
-
 public class ConectaBanco {
 	public Connection conexao() {
 		String user = "root";
-		String senha = "Vidabela1@";
+		String senha = "";
 		
 		Connection conn = null;
 		Statement stmt = null;
