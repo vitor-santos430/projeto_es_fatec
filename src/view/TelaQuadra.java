@@ -24,6 +24,7 @@ import javax.swing.border.EmptyBorder;
 
 import controller.Quadra;
 import utils.ConectaBanco;
+import javax.swing.JList;
 
 public class TelaQuadra extends JFrame {
 
@@ -61,7 +62,7 @@ public class TelaQuadra extends JFrame {
 		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 		setTitle("Quadras");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 468);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -195,8 +196,27 @@ public class TelaQuadra extends JFrame {
 				
 			}
 		});
-		btnCadastrarQuadra.setBounds(26, 214, 163, 25);
+		btnCadastrarQuadra.setBounds(45, 214, 163, 25);
 		contentPane.add(btnCadastrarQuadra);
+		
+		JButton btnListarQuadras = new JButton("listar quadras");
+		btnListarQuadras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Quadra quadra = new Quadra();
+				quadra.listarQuadra();
+			
+				
+				
+				
+			}
+		});
+	
+		btnListarQuadras.setBounds(253, 214, 150, 25);
+		contentPane.add(btnListarQuadras);
+		
+		JList list = new JList();
+		list.setBounds(15, 251, 423, 168);
+		contentPane.add(list);
 		
 		
 		

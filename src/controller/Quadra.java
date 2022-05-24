@@ -2,7 +2,11 @@ package controller;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -112,6 +116,7 @@ public class Quadra {
 	public boolean cadastrarQuadra() {
 		Connection conn= null;
 		PreparedStatement st = null;
+		
 		try {
 			ConectaBanco cb = new ConectaBanco();
 			 conn = cb.conexao();
@@ -142,9 +147,43 @@ public class Quadra {
 		return false;
 	}
 	
-	
+	public void listarQuadra(){
+		Connection conn= null;
+		Statement st = null;
+		ResultSet rs = null;
+		String tipo = " ";
+		try {
+			ConectaBanco cb = new ConectaBanco();
+			 conn = cb.conexao();
+			 st = conn.createStatement();
+			 rs = st.executeQuery("select * from quadra");
+			 
+			 while (rs.next()) {
+				 if(rs.getInt("idTipoQuadra") == 1) {
+					 tipo = "Saibro";
+				 }
+				 if(rs.getInt("idTipoQuadra") == 2) {
+					 tipo = "Rapida";
+				 }
+				 if(rs.getInt("idTipoQuadra") == 3) {
+					 tipo = "Beach Tenis";
+				 }
+				System.out.println("numero: " + rs.getInt("numero"));
+				System.out.println("arquibancada: " + rs.getBoolean("arquibancada"));
+				System.out.println("cobertura: " + rs.getBoolean("cobertura")); 
+				System.out.println("Banco: " + rs.getBoolean("banco"));
+				System.out.println("Valor por hora: R$" + rs.getFloat("valorHora"));
+				System.out.println("Tipo: " + tipo);
+				System.out.println("Status: " + rs.getBoolean("st_status"));
+				System.out.printf("\n\n\n");
+				
+				
+				}
 		
-	
-	
-
+		}
+		catch (SQLException e1) {
+			e1.printStackTrace();
+			JOptionPane.showMessageDialog(null, e1.getMessage());
+		}
+	}
 }

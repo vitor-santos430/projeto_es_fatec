@@ -55,7 +55,7 @@ public class ViewLogin extends JFrame {
 		ConectaBanco cb = new ConectaBanco();
 		Connection  con  = cb.conexao();
 		
-		Statement stmt = null;
+		Statement stmt = con.createStatement();
 		
 		ResultSet rs;
 		
