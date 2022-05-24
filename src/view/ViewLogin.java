@@ -53,7 +53,9 @@ public class ViewLogin extends JFrame {
 		String senha = new String(txtPassword.getPassword());
 		
 		ConectaBanco cb = new ConectaBanco();
-		Statement stmt = cb.conexao();
+		Connection  con  = cb.conexao();
+		
+		Statement stmt = con.createStatement();
 		
 		ResultSet rs;
 		

@@ -1,7 +1,14 @@
 package view;
 
+import java.awt.Dialog.ModalExclusionType;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
@@ -16,23 +23,21 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import controller.Quadra;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import utils.ConectaBanco;
 import javax.swing.JList;
-import java.awt.Dialog.ModalExclusionType;
-import java.awt.Window.Type;
 
 public class TelaQuadra extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private final JLabel lblCadastroDeQuadra = new JLabel("Cadastro de Quadra");
-	private JTextField txtId;
-	private JTextField txtNome;
+	private JTextField txtNumeroQuadra;
 	private JLabel lblTipo;
-	private String type;
+	private int type;
+	private boolean status;
 
-	private ArrayList<Quadra> quadras = new ArrayList<Quadra>();
+	
+	private JTextField txtValorPorHora;
 	/**
 	 * Launch the application.
 	 */
@@ -57,7 +62,7 @@ public class TelaQuadra extends JFrame {
 		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 		setTitle("Quadras");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 468);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -66,76 +71,91 @@ public class TelaQuadra extends JFrame {
 		lblCadastroDeQuadra.setBounds(106, 12, 261, 17);
 		contentPane.add(lblCadastroDeQuadra);
 		
-		JLabel lblId = new JLabel("Id:");
-		lblId.setBounds(15, 53, 25, 17);
-		contentPane.add(lblId);
-		
-		txtId = new JTextField();
-		txtId.setBounds(88, 52, 47, 19);
-		contentPane.add(txtId);
-		txtId.setColumns(10);
-		
-		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setBounds(15, 86, 56, 17);
+		JLabel lblNome = new JLabel("Numero:");
+		lblNome.setBounds(15, 44, 70, 17);
 		contentPane.add(lblNome);
 		
-		txtNome = new JTextField();
-		txtNome.setColumns(10);
-		txtNome.setBounds(88, 83, 114, 19);
-		contentPane.add(txtNome);
+		txtNumeroQuadra = new JTextField();
+		txtNumeroQuadra.setColumns(10);
+		txtNumeroQuadra.setBounds(88, 41, 114, 19);
+		contentPane.add(txtNumeroQuadra);
 		
 		lblTipo = new JLabel("Tipo:");
-		lblTipo.setBounds(15, 119, 70, 15);
+		lblTipo.setBounds(15, 116, 70, 15);
 		contentPane.add(lblTipo);
 		
 		JRadioButton radSaibro = new JRadioButton("Saibro");
-		radSaibro.setBounds(141, 115, 82, 23);
+		radSaibro.setBounds(141, 108, 82, 23);
 		contentPane.add(radSaibro);
 		
 		JRadioButton radRapida = new JRadioButton("Rapida");
-		radRapida.setBounds(232, 115, 82, 23);
+		radRapida.setBounds(232, 108, 82, 23);
 		contentPane.add(radRapida);
 		
 		JRadioButton radBeachTenis = new JRadioButton("Beach tenis");
-		radBeachTenis.setBounds(311, 115, 114, 23);
+		radBeachTenis.setBounds(311, 108, 114, 23);
 		contentPane.add(radBeachTenis);
 		
 		ButtonGroup tipo = new ButtonGroup();
 		tipo.add(radBeachTenis);
 		tipo.add(radSaibro);
 		tipo.add(radRapida);
+		txtValorPorHora = new JTextField();
+		txtValorPorHora.setColumns(10);
+		txtValorPorHora.setBounds(142, 78, 47, 19);
+		contentPane.add(txtValorPorHora);
+		
+		JLabel lblValorPorHora = new JLabel("Valor por hora:");
+		lblValorPorHora.setBounds(15, 80, 117, 17);
+		contentPane.add(lblValorPorHora);
+		
+		JLabel lblStatus = new JLabel("Status:");
+		lblStatus.setBounds(15, 177, 59, 15);
+		contentPane.add(lblStatus);
+		
+		JRadioButton radAtiva = new JRadioButton("ativa");
+		radAtiva.setBounds(82, 173, 75, 23);
+		contentPane.add(radAtiva);
+		
+		JRadioButton radInativa = new JRadioButton("inativa");
+		radInativa.setBounds(165, 173, 82, 23);
+		contentPane.add(radInativa);
+		
+		ButtonGroup situacao = new ButtonGroup();
+		situacao.add(radAtiva);
+		situacao.add(radInativa);
 		
 		
 		JLabel lblEspecificacoes = new JLabel("Especificações:");
-		lblEspecificacoes.setBounds(12, 150, 120, 15);
+		lblEspecificacoes.setBounds(15, 150, 120, 15);
 		contentPane.add(lblEspecificacoes);
 		
 		JCheckBox ckbCoberta = new JCheckBox("Coberta");
-		ckbCoberta.setBounds(141, 146, 82, 23);
+		ckbCoberta.setBounds(141, 142, 82, 23);
 		contentPane.add(ckbCoberta);
 		
 		JCheckBox ckbBanco = new JCheckBox("Banco");
-		ckbBanco.setBounds(232, 146, 70, 23);
+		ckbBanco.setBounds(232, 142, 70, 23);
 		contentPane.add(ckbBanco);
 		
 		JCheckBox ckbArquibancada = new JCheckBox("Arquibancada");
-		ckbArquibancada.setBounds(311, 146, 129, 23);
+		ckbArquibancada.setBounds(311, 142, 129, 23);
 		contentPane.add(ckbArquibancada);
 		
 		JButton btnCadastrarQuadra = new JButton("Cadastrar Quadra");
 		btnCadastrarQuadra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Quadra quadra = new Quadra();
-				quadra.setId(txtId.getText());
-				quadra.setNome(txtNome.getText());
+				quadra.setValorHora(Float.parseFloat(txtValorPorHora.getText()));
+				quadra.setNumero(Integer.parseInt(txtNumeroQuadra.getText()));
 				if (radSaibro.isSelected()) {
-					type = "Saibro";
+					type = 1;
 				}
 				else if(radRapida.isSelected()) {
-					type = "Rapida";
+					type = 2;
 				}
 				else {
-					type = "Beach Tenis";
+					type = 3;
 				}
 				quadra.setTipo(type);
 				if(ckbCoberta.isSelected()) 
@@ -145,43 +165,67 @@ public class TelaQuadra extends JFrame {
 				
 				if(ckbArquibancada.isSelected()) 
 					quadra.setPossui_arquibancada(true);
-				quadras.add(quadra);
+				
+				if(radAtiva.isSelected()) {
+					status = true;
+				}
+				
+				else {
+					status = false;
+				}
+				
+				if (quadra.cadastrarQuadra()){
+					
+				
+				
 				
 				JOptionPane.showMessageDialog(null, "A quadra foi cadastrada com sucesso", "Cadastro de quadra", JOptionPane.INFORMATION_MESSAGE);
 				
-				txtId.setText(" ");
-				txtNome.setText(" ");
+				txtValorPorHora.setText(" ");
+				txtNumeroQuadra.setText(" ");
 				tipo.clearSelection();
 				ckbBanco.setSelected(false);
 				ckbCoberta.setSelected(false);
 				ckbArquibancada.setSelected(false);
+				
+				}else {
+					JOptionPane.showMessageDialog(null, "A quadra ja esta cadastrada","Cadastro de quadra", JOptionPane.INFORMATION_MESSAGE);
+					
+				}
+				
+				
 			}
 		});
-		btnCadastrarQuadra.setBounds(26, 214, 163, 25);
+		btnCadastrarQuadra.setBounds(45, 214, 163, 25);
 		contentPane.add(btnCadastrarQuadra);
 		
-		
-		
-		JButton btnQuadrasCadastradas = new JButton("Quadras Cadastradas");
-		btnQuadrasCadastradas.addActionListener(new ActionListener() {
+		JButton btnListarQuadras = new JButton("listar quadras");
+		btnListarQuadras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				for(int i = 0; i < quadras.size(); i++) {
-					System.out.println("Id: "+ quadras.get(i).getId());
-					System.out.println("Nome: "+ quadras.get(i).getNome());
-					System.out.println("Tipo: "+ quadras.get(i).getTipo());
-					System.out.println("Coberta: "+ quadras.get(i).isPossui_cobertura());
-					System.out.println("Arquibancada: "+ quadras.get(i).isPossui_arquibancada());
-					System.out.println("Banco: "+ quadras.get(i).isPossui_banco());
-					
+				Quadra quadra = new Quadra();
+				quadra.listarQuadra();
+			
+				
+				
+				
+			}
+		});
+	
+		btnListarQuadras.setBounds(253, 214, 150, 25);
+		contentPane.add(btnListarQuadras);
+		
+		JList list = new JList();
+		list.setBounds(15, 251, 423, 168);
+		contentPane.add(list);
+		
+		
+		
+		
+		
+		
+	
 					
 					
 				}
-			}
-		});
-		btnQuadrasCadastradas.setBounds(215, 214, 208, 25);
-		contentPane.add(btnQuadrasCadastradas);
-		
-		
-		
 	}
-}
+

@@ -9,21 +9,21 @@ import javax.swing.JOptionPane;
 import java.sql.Connection;
 
 public class ConectaBanco {
-	public Statement conexao() {
+	public Connection conexao() {
 		String user = "root";
-		String senha = "";
+		String senha = "Vidabela1@";
 		
 		Connection conn = null;
 		Statement stmt = null;
 		
 		try {
-			String url = "jdbc:mysql://localhost:3306/db_sistema_clube";
+			String url = "jdbc:mysql://localhost:3306/clube";
 			conn = DriverManager.getConnection(url, user, senha);
-			stmt = conn.createStatement();
+			
 		}catch(SQLException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}	
 		
-		return stmt;
+		return conn;
 	}
 }
