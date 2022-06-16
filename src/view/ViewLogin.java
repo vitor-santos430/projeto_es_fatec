@@ -59,7 +59,7 @@ public class ViewLogin extends JFrame {
 		
 		ResultSet rs;
 		
-		rs = stmt.executeQuery("SELECT * FROM usuario where login = '"+email+"'");
+		rs = stmt.executeQuery("SELECT * FROM usuario where email = '"+email+"'");
 		if(rs.next()) {
 			if(senha.equals(rs.getString("senha"))) {
 				Menu mn = new Menu();

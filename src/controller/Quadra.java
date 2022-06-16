@@ -121,7 +121,7 @@ public class Quadra {
 			
 			st = conn.prepareStatement(
 					"INSERT INTO quadra"
-					+ "(numero, idTipoQuadra, dataCadastroQuadra , cobertura, banco, arquibancada, valorHora, st_status)"
+					+ "(numero, idTipoQuadra, dataCadastro , cobertura, banco, arquibancada, valorHora, st_status)"
 					+ "VALUES"
 					+ "(?,?,?,?,?,?,?,?)");
 			st.setInt(1, this.numero);

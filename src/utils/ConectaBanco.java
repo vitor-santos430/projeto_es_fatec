@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 public class ConectaBanco {
 	public Connection conexao() {
 		String user = "root";
-		String senha = "";
+		String senha = "674905Ll@";
 		
 		Connection conn = null;
 		Statement stmt = null;
