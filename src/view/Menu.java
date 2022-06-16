@@ -35,7 +35,7 @@ public class Menu extends JFrame {
 	 * Create the frame.
 	 */
 	public Menu() {
-		setTitle("Menu - Programa de Clube - v0.0.1");
+		setTitle("Menu - Programa de Clube - v0.0.2");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 531, 327);
 		this.setLocationRelativeTo(null);
@@ -51,7 +51,7 @@ public class Menu extends JFrame {
 				tq.setVisible(true);
 			}
 		});
-		btnNewButton.setBounds(99, 123, 117, 56);
+		btnNewButton.setBounds(99, 53, 117, 56);
 		contentPane.add(btnNewButton);
 		
 		JLabel lblMenu = new JLabel("Menu");
@@ -60,7 +60,29 @@ public class Menu extends JFrame {
 		contentPane.add(lblMenu);
 		
 		JButton btnNewButton_1 = new JButton("Clientes");
-		btnNewButton_1.setBounds(315, 123, 117, 56);
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton_1.setBounds(315, 53, 117, 56);
 		contentPane.add(btnNewButton_1);
+		
+		JButton btnManutencaoDeQuadras = new JButton("Manutencao de Quadras");
+		btnManutencaoDeQuadras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				final TelaManutencao tm = new TelaManutencao();
+				tm.setVisible(true);
+			}
+		});
+		btnManutencaoDeQuadras.setBounds(99, 149, 117, 56);
+		contentPane.add(btnManutencaoDeQuadras);
+		
+		JButton btnReservaDeQuadras = new JButton("Reserva de Quadras");
+		btnReservaDeQuadras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnReservaDeQuadras.setBounds(315, 149, 117, 56);
+		contentPane.add(btnReservaDeQuadras);
 	}
 }
