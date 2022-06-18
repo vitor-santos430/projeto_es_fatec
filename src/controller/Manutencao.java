@@ -80,7 +80,7 @@ public class Manutencao {
 
 
 	public String getDataFinal() {
-		return dataFinal;
+		return this.dataFinal;
 	}
 
 
@@ -96,7 +96,7 @@ public class Manutencao {
 
 
 	public String descricao() {
-		return descricao;
+		return this.descricao;
 	}
 
 
@@ -112,7 +112,7 @@ public class Manutencao {
 
 
 	public boolean isFinalizada() {
-		return finalizada;
+		return this.finalizada;
 	}
 
 
@@ -128,7 +128,7 @@ public class Manutencao {
 
 
 	public String getDataCadastro() {
-		return dataCadastro;
+		return this.dataCadastro;
 	}
 
 
@@ -163,6 +163,8 @@ public class Manutencao {
 		Connection conn= null;
 		PreparedStatement st = null;
 		try {
+			JOptionPane.showMessageDialog(null,this.dataFinal);
+			
 			ConectaBanco cb = new ConectaBanco();
 			 conn = cb.conexao();
 			
@@ -172,10 +174,10 @@ public class Manutencao {
 					+ "VALUES"
 					+ "(?,?,?,?,?,?)");
 			st.setInt   (1, this.idQuadra);
-			st.setDate  (2, java.sql.Date.valueOf(this.dataInicial));
-			st.setDate  (3, java.sql.Date.valueOf(this.dataFinal));
+			st.setDate  (2, java.sql.Date.valueOf("2022-10-10"));
+			st.setDate  (3, java.sql.Date.valueOf("2022-10-10"));
 			st.setString(4, this.descricao);
-			st.setDate  (5, java.sql.Date.valueOf(this.dataCadastro));
+			st.setDate  (5, java.sql.Date.valueOf("2022-10-10"));
 			st.setInt   (6, this.idUsuario);
 			
 			st.execute();

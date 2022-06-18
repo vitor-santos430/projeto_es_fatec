@@ -32,7 +32,7 @@ public class TelaManutencao extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private final JLabel lblCadastroDeManutencao = new JLabel("Cadastro de Manutenção");
+	private final JLabel lblCadastroDeManutencao = new JLabel("Cadastro de Manutenï¿½ï¿½o");
 	private JTextField txtNumeroQuadra;
 	private JTextField txtDataInicial;
 	private JTextField txtDataFinal;
@@ -99,19 +99,20 @@ public class TelaManutencao extends JFrame {
 		JButton btnCadastrarManutencao = new JButton("Cadastrar Manuten\u00E7\u00E3o");
 		btnCadastrarManutencao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				JOptionPane.showMessageDialog(null, txtDataFinal.getText().toString());
 				Manutencao manutencao = new Manutencao();
 				
 				// Passando os valores 
 				manutencao.setIdQuadra   (Integer.parseInt(txtNumeroQuadra.getText()));
 				manutencao.setDataInicial(txtDataInicial.getText());
 				manutencao.setDataFinal  (txtDataFinal.getText());
+				JOptionPane.showMessageDialog(null, txtDataFinal.getText());
 				manutencao.setDescricao  (txtDescricao.getText());
 				
 				
 								
 				if (manutencao.cadastrarManutencao()){
-					JOptionPane.showMessageDialog(null, "A Manutenção da quadra foi cadastrada com sucesso", "Cadastro de Manutenção de Quadra", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "A ManutenÃ§Ã£o da quadra foi cadastrada com sucesso", "Cadastro de ManutenÃ§Ã£o de Quadra", JOptionPane.INFORMATION_MESSAGE);
 				
 					txtNumeroQuadra.setText(" ");
 					txtDataInicial.setText (" ");
@@ -119,7 +120,7 @@ public class TelaManutencao extends JFrame {
 					txtDescricao.setText   (" ");
 				
 				}else {
-					JOptionPane.showMessageDialog(null, "Manutenção já cadastrada","Cadastro de Manutenção de Quadra", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "ManutenÃ§Ã£o jÃ¡ cadastrada","Cadastro de ManutenÃ§Ã£o de Quadra", JOptionPane.INFORMATION_MESSAGE);
 					
 				}
 			}
