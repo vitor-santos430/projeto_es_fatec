@@ -4,12 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
 
 import utils.ConectaBanco;
+import view.Menu;
 
 public class Usuario {
 	private int id;
@@ -214,6 +216,33 @@ public class Usuario {
 			e1.printStackTrace();
 			System.out.println(e1.getMessage());
 			return false;
+		}
+	}
+	
+	public int logar(String email, String senha) throws SQLException {
+		Connection conn = null;
+		PreparedStatement st = null;
+//		Statement stmt = conn.createStatement();
+		
+		ConectaBanco cb = new ConectaBanco();
+		conn  = cb.conexao();
+		
+		st = conn.prepareStatement("SELECT * FROM usuario where email = ? and st_status = 1");
+		st.setString(1, email);
+		
+		ResultSet rs;
+		
+		rs = st.executeQuery();
+		
+		if(rs.next()) {
+			if(senha.equals(rs.getString("senha"))) {
+				return 1;
+			}else {
+				return 2;
+			}
+		}else {
+			// caso não exista o usuario
+			return 3;
 		}
 	}
 }

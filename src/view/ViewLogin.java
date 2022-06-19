@@ -20,6 +20,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import controller.Usuario;
 import utils.ConectaBanco;
 
 public class ViewLogin extends JFrame {
@@ -52,23 +53,23 @@ public class ViewLogin extends JFrame {
 		String email = txtEmail.getText();
 		String senha = new String(txtPassword.getPassword());
 		
-		ConectaBanco cb = new ConectaBanco();
-		Connection  con  = cb.conexao();
+		Usuario us = new Usuario();
 		
-		Statement stmt = con.createStatement();
-		
-		ResultSet rs;
-		
-		rs = stmt.executeQuery("SELECT * FROM usuario where email = '"+email+"' and st_status = 1");
-		if(rs.next()) {
-			if(senha.equals(rs.getString("senha"))) {
+		int result_login = us.logar(email, senha);
+		switch(result_login) {
+			case 1: 
 				Menu mn = new Menu();
 				mn.setVisible(true);
-			}else {
-				JOptionPane.showMessageDialog(null, "Senha incorreta!");
-			}
-		}else {
-			JOptionPane.showMessageDialog(null, "Usuario não encontrado");
+			break;
+			case 2: 
+				JOptionPane.showMessageDialog(null, "Senha inválida.");
+			break;
+			case 3:
+				JOptionPane.showMessageDialog(null, "Usuário inválido.");
+			break;
+			default:
+				JOptionPane.showMessageDialog(null, "Algo deu errado, tente novamente.");
+			break;
 		}
 	}
     
