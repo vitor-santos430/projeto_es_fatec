@@ -43,13 +43,21 @@ public class Reserva extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		int i;
 		
 		JComboBox comboBox = new JComboBox();
 		Quadra quadra = new Quadra();
+		List<Quadra> quadras = new ArrayList();
+		quadras = quadra.listarQuadra();
+		
 		
 		
 		comboBox.setBounds(41, 119, 357, 24);
 		contentPane.add(comboBox);
+		for(i=0;i < quadras.size(); i++) {
+		comboBox.addItem("Numero: " + quadras.get(i).numero + " Valor por Hora: " + quadras.get(i).valorHora + " Tipo: " + quadras.get(i).tipo);
+		}
+		
 		
 		JButton btnReservarHorario = new JButton("Reservar Horario");
 		btnReservarHorario.setBounds(371, 279, 154, 25);

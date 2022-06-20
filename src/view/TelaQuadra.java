@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -19,6 +21,11 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import controller.Quadra;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollPane;
+import java.awt.Color;
+import java.awt.SystemColor;
 
 public class TelaQuadra extends JFrame {
 
@@ -32,6 +39,7 @@ public class TelaQuadra extends JFrame {
 
 	
 	private JTextField txtValorPorHora;
+	private JTable table;
 	/**
 	 * Launch the application.
 	 */
@@ -196,8 +204,38 @@ public class TelaQuadra extends JFrame {
 		JButton btnListarQuadras = new JButton("listar quadras");
 		btnListarQuadras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Quadra quadra = new Quadra();
-				quadra.listarQuadra();
+				List<Quadra> quadras = new ArrayList<Quadra>();
+				quadras = Quadra.listarQuadra();
+				int i=0;
+				Object[][] objeto = new Object[quadras.size()][7];
+				System.out.println(quadras.get(0).numero + " " + quadras.get(1).numero);
+				for( i=0; i< quadras.size(); i++) {
+					objeto[i][0] = quadras.get(i).numero;
+					objeto[i][1] = quadras.get(i).valorHora;
+					objeto[i][2] = quadras.get(i).tipo;
+					objeto[i][3] = quadras.get(i).possui_arquibancada;
+					objeto[i][4] = quadras.get(i).possui_banco;
+					objeto[i][5] = quadras.get(i).possui_cobertura;
+					objeto[i][6] = quadras.get(i).status;
+				}
+				JScrollPane scrollPane = new JScrollPane();
+				scrollPane.setBounds(40, 251, 363, 168);
+				contentPane.add(scrollPane);
+				
+				
+				table = new JTable();
+				table.setBackground(SystemColor.activeCaptionBorder);
+				scrollPane.setViewportView(table);
+				table.setModel(new DefaultTableModel(
+						objeto,
+					
+					new String[] {
+						"Numero", "Valor Hora", "Tipo", "Arquibancada", "Cobertura", "Banco", "Status"
+					}
+				));
+				
+				
+				table.getColumnModel().getColumn(3).setPreferredWidth(100);
 			
 				
 				
@@ -208,9 +246,7 @@ public class TelaQuadra extends JFrame {
 		btnListarQuadras.setBounds(253, 214, 150, 25);
 		contentPane.add(btnListarQuadras);
 		
-		JList list = new JList();
-		list.setBounds(15, 251, 423, 168);
-		contentPane.add(list);
+		
 		
 		
 		

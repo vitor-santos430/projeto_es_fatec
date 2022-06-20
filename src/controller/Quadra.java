@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -12,10 +14,10 @@ import utils.ConectaBanco;
 
 public class Quadra {
 	
+	public int id;
 	public int numero;
 	public float valorHora;
 	public int tipo;
-	public double horas[];
 	public boolean possui_cobertura;
 	public boolean possui_arquibancada;
 	public boolean possui_banco;
@@ -145,11 +147,12 @@ public class Quadra {
 		return false;
 	}
 	
-	public void listarQuadra(){
+	public static List<Quadra> listarQuadra(){
 		Connection conn= null;
 		Statement st = null;
 		ResultSet rs = null;
-		String tipo = " ";
+		
+		List<Quadra> quadras = new ArrayList<Quadra>();
 		try {
 			ConectaBanco cb = new ConectaBanco();
 			 conn = cb.conexao();
@@ -157,31 +160,29 @@ public class Quadra {
 			 rs = st.executeQuery("select * from quadra");
 			 
 			 while (rs.next()) {
-				 if(rs.getInt("idTipoQuadra") == 1) {
-					 tipo = "Saibro";
-				 }
-				 if(rs.getInt("idTipoQuadra") == 2) {
-					 tipo = "Rapida";
-				 }
-				 if(rs.getInt("idTipoQuadra") == 3) {
-					 tipo = "Beach Tenis";
-				 }
-				System.out.println("numero: " + rs.getInt("numero"));
-				System.out.println("arquibancada: " + rs.getBoolean("arquibancada"));
-				System.out.println("cobertura: " + rs.getBoolean("cobertura")); 
-				System.out.println("Banco: " + rs.getBoolean("banco"));
-				System.out.println("Valor por hora: R$" + rs.getFloat("valorHora"));
-				System.out.println("Tipo: " + tipo);
-				System.out.println("Status: " + rs.getBoolean("st_status"));
-				System.out.printf("\n\n\n");
+				Quadra quadra = new Quadra();
+				quadra.setNumero(rs.getInt("numero"));
+				quadra.setValorHora(rs.getFloat("valorHora"));
+				quadra.setTipo(rs.getInt("IdTipoQuadra"));
+				quadra.setPossui_arquibancada(rs.getBoolean("arquibancada"));
+				quadra.setPossui_cobertura(rs.getBoolean("cobertura"));
+				quadra.setPossui_banco(rs.getBoolean("cobertura"));
+				quadra.setStatus(rs.getBoolean("st_status"));
 				
+				
+				quadras.add(quadra);
+				
+				
+				
+			
 				
 				}
-		
+			 return quadras;
 		}
 		catch (SQLException e1) {
 			e1.printStackTrace();
 			JOptionPane.showMessageDialog(null, e1.getMessage());
 		}
+		return null;
 	}
 }
