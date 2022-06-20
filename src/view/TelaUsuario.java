@@ -62,8 +62,8 @@ public class TelaUsuario extends JFrame {
 		
 		String[] colunas = {"", };
 		
-		tbUsuario = new JTable(usuarios);
-		usuarios.addColumn("");
+//		tbUsuario = new JTable(usuarios);
+//		usuarios.addColumn("");
 		tbUsuario.setBounds(32, 102, 529, 194);
 		contentPane.add(tbUsuario);
 	}

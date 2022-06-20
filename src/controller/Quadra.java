@@ -183,6 +183,6 @@ public class Quadra {
 			e1.printStackTrace();
 			JOptionPane.showMessageDialog(null, e1.getMessage());
 		}
-		return quadras;
+		return null;
 	}
 }
